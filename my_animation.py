@@ -1,12 +1,16 @@
 import simple_animation as sa
 import math
 import random
+import time
 randInt = 20
-randObject = {"X": 0, "y": 0}
+octopus = {"x": 400, "y": 300, "w": 120, "h": 124, "eyeRadius": 8, "state": "idle"}
+#foodObject = {"x": 0, "y": 0, "h" : 50, "w" : 50, "c" : "blue", "eaten": False}
+
+
 #def draw_object():
     
-#    sa.set_fill_colour()
-#    oval(randObject[],randObject,100,200)
+#    sa.set_fill_color(foodObject["c"])
+#    oval(foodObject["x"],foodObject["y"],foodObject["w"],foodObject["h"])
 
 def oval(center_x,center_y,width,height):
     """Draws a solid circle given its center point and radius."""
@@ -61,12 +65,12 @@ def draw_octopus(centreX,centreY,width,height, eyes):
     else:
         pass
     eyeOffset = width//2
-    sa.fill_circle(centreX-eyeOffset,centreY,20)
-    sa.fill_circle(centreX+eyeOffset,centreY,20)
+    sa.fill_circle(centreX-eyeOffset,centreY,octopus["eyeRadius"])
+    sa.fill_circle(centreX+eyeOffset,centreY,octopus["eyeRadius"])
     
     if eyes == "closed":
-        sa.draw_line(centreX-eyeOffset+20,centreY,centreX-eyeOffset-20,centreY)
-        sa.draw_line(centreX+eyeOffset+20,centreY,centreX+eyeOffset-20,centreY)
+        sa.draw_line(centreX-eyeOffset+octopus["eyeRadius"],centreY,centreX-eyeOffset-octopus["eyeRadius"],centreY)
+        sa.draw_line(centreX+eyeOffset+octopus["eyeRadius"],centreY,centreX+eyeOffset-octopus["eyeRadius"],centreY)
     
     
 
@@ -97,42 +101,70 @@ def draw_frame(frame_number, elapsed_seconds, width, height):
   #  else:
   #      sa.draw_fish(x_fish, y_fish, 50, fish_color, "left")
     global randInt
+    global foodObject
+    
     repeat_octopus = 60
 
     if (frame_number % repeat_octopus == 0):
-        randInt = random.randint(5,20)
+        randInt = random.randint(0,20)
         
-    w_octopus = sa.oscillate_frames(300,300+randInt,repeat_octopus, frame_number)
-    h_octopus = sa.oscillate_frames(310,310-randInt,repeat_octopus, frame_number)
     
-    if (frame_number % repeat_octopus)  < (repeat_octopus // 2):
-        if (frame_number % repeat_octopus*12)< (repeat_octopus // 2)and randInt>15:
-            draw_octopus(400,300,w_octopus,h_octopus,"closed")
+    
+    #leftClickX, leftClickY = sa._leftClick_x, sa._leftClick_y
+    
+    
+    #if (leftClickX - 20 <mouseX <leftClickX  + 20) and (leftClickY - 20 <mouseY <leftClickY  + 20):
+    
+    
+    
+    
+    
+    w_octopus = sa.oscillate_frames(octopus["w"],octopus["w"]+randInt,repeat_octopus, frame_number)
+    h_octopus = sa.oscillate_frames(octopus["h"],octopus["h"]-randInt,repeat_octopus, frame_number)
+    if octopus["state"] == "idle":
+        if (frame_number % repeat_octopus)  < (repeat_octopus // 2):
+            if (frame_number % repeat_octopus*12)< (repeat_octopus // 2)and randInt>15:
+                draw_octopus(octopus["x"],octopus["y"],w_octopus,h_octopus,"closed")
+            else:
+                draw_octopus(octopus["x"],octopus["y"],w_octopus,h_octopus,"open")
+        
+            
+        
         else:
-            draw_octopus(400,300,w_octopus,h_octopus,"open")
+            draw_octopus(octopus["x"],octopus["y"],w_octopus,h_octopus,"open")
+            
+        #sa.draw_fish(x_fish, yoctopus["eyeRadius"_fish, 50, fish_color, "left")
+    mX, mY = sa.get_mouse_x(), sa.get_mouse_y()
     
+    #if (octopus["x"]- octopus["w"]//2 <mX< octopus["x"] + octopus["w"]//2) and (octopus["y"]- octopus["h"]//2 <mX< octopus["y"] + octopus["h"]//2):
+    #    foodObject["eaten"] = True
+    #    octopus["state"] = "active"
+    #    time1 = time.datetime.now()
+    #    print(time1)
+    #    if time1 > time.datetime.now +2:
+    #        print("done")
+    
+   # if foodObject["eaten"] == False:
         
-    
-    else:
-        draw_octopus(400,300,w_octopus,h_octopus,"open")
-        
-        #sa.draw_fish(x_fish, y_fish, 50, fish_color, "left")
-    
-
-    
+    #    foodObject["x"], foodObject["y"] = mX, mY
+    #    draw_object()
+    #
     #draw_octopus(400,300,400,400)
     
     # Draw the information text
-    sa.set_fill_color("black")
-    sa.draw_text(40, 50, f"Frame number: {frame_number}")
-    sa.draw_text(40, 80, f"Elapsed Time: {elapsed_seconds:.1f} seconds")
-    sa.draw_text(40, 110, f"Mouse x: {sa.get_mouse_x()}")
-    sa.draw_text(40, 140, f"Mouse y: {sa.get_mouse_y()}")
+    #sa.set_fill_color("black")
+    #sa.draw_text(40, 50, f"Frame number: {frame_number}")
+    #sa.draw_text(40, 80, f"Elapsed Time: {elapsed_seconds:.1f} seconds")
+    #sa.draw_text(40, 110, f"Mouse x: {sa.get_mouse_x()}")
+    #sa.draw_text(40, 140, f"Mouse y: {sa.get_mouse_y()}")
+    #sa.draw_text(40, 160, f"click x: {sa._leftClick_x}")
+    #sa.draw_text(40, 180, f"click y: {sa._leftClick_y}")
+
+
+
 
 if __name__ == "__main__":
     # Launch the wrapper and tell it to use our draw_frame function
     sa.start(draw_frame)
-    
-
-
+        
 
