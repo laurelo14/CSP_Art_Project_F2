@@ -1,49 +1,31 @@
 import simple_animation as sa
 
+
 def draw_frame(frame_number, elapsed_seconds, width, height):
     """Draws one frame of an animation. Called approx 60 times per second."""
     
-    sa.fill_background("white") # Clear the background for this frame
-    
-    # Draws a blue ocean starting at the left edge (x=0) and halfway down the screen (y=300)
-    sa.draw_ocean(0, 50, "#008CFF")                 # 1. Background layer: New Royal Blue (Higher up)
-    sa.draw_foreground_ocean(0, 200, "#5CBAFF")      # 2. Foreground layer: New slightly darker light blue (Lower down)0)
-    
-    # Draws a smooth, brownish-yellow wavy sand layer at the bottom 10% of a 600px tall canvas
-    sa.draw_wavy_sand(0, 540, "#D2B48C", 100)
-     # Example Animation: A moving circle
-    x_ball = sa.loop_motion(0, width, 5.0, frame_number) # x coordinate
-    
-    sa.set_fill_color("red")
-    
-    sa.fill_circle(x_ball, height / 2, 40)
-    
-    # Example Animation: A moving fish (a little more complicated) with changing colors
-    
-    repeat_fish = 300 # number of frames to repeat
-    color_hue = (frame_number % repeat_fish) / repeat_fish
-    fish_color = sa.hls_to_rgb_hex(color_hue, 0.5, 1.0)
-    
-    x_fish = sa.oscillate_frames(0, width-50, repeat_fish, frame_number)
-    y_fish = sa.oscillate_motion(height//2, height//2 +100, 0.15, frame_number)
-    
-    if (frame_number % repeat_fish)  < (repeat_fish // 2):
-        sa.draw_fish(x_fish, y_fish, 50, fish_color, "right")
-    else:
-        sa.draw_fish(x_fish, y_fish, 50, fish_color, "left")
-    
+
+   
 
     
+    sa.set_line_thickness(5)
+    sa.set_outline_color("green")
+    sa.draw_curve([(700, 600), (600, 500), (700, 400)])
+    sa.draw_curve([(700, 400), (800, 300), (700, 200)])
+    sa.draw_curve([(750, 650), (650, 550), (750, 450)])
+    sa.draw_curve([(750, 450), (850, 350), (700, 200)])
     
-    # Draw the information text
-    sa.set_fill_color("black")
-    sa.draw_text(40, 50, f"Frame number: {frame_number}")
-    sa.draw_text(40, 80, f"Elapsed Time: {elapsed_seconds:.1f} seconds")
-    sa.draw_text(40, 110, f"Mouse x: {sa.get_mouse_x()}")
-    sa.draw_text(40, 140, f"Mouse y: {sa.get_mouse_y()}")
+    sa.draw_seaweed(200, 600, 0.5, "green")
+    sa.draw_seaweed(150, 600, 1, "green")
+    sa.set_outline_color("#5d6e5f")
+    sa.draw_seaweed(100, 600, 1.6, "#5d6e5f")
+    
 
+    sa.set_line_thickness(0)
+    sa.set_outline_color("#b8d3ff")
+    sa.draw_dolphin(300, 100, 2, "#b8d3ff")
+
+    
 if __name__ == "__main__":
-    # Launch the wrapper and tell it to use our draw_frame function
+        # Launch the wrapper and tell it to use our draw_frame function
     sa.start(draw_frame)
-    
-
