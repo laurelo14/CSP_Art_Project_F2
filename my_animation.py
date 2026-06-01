@@ -4,7 +4,9 @@ import simple_animation as sa
 def draw_frame(frame_number, elapsed_seconds, width, height):
     """Draws one frame of an animation. Called approx 60 times per second."""
     
-    #sa.fill_background("blue")
+
+   
+
     
     sa.set_line_thickness(5)
     sa.set_outline_color("green")

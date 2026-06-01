@@ -355,6 +355,74 @@ def draw_fish(x, y, size, color, direction):
                         eye_x + eye_radius, eye_y + eye_radius, 
                         fill="white", outline="black", width=1)
     
+def draw_ocean(x, y, color):
+    """
+    Draws an ocean background with a wavy top starting at (x, y).
+    
+    AI Attribution: This function was generated using Gemini.
+    Original Student Prompt: "I want to make the backround blue and make it wavy at the top makeit look like the ocean. Parameters: (x,y,color)"
+    """
+    # Get the canvas height and width so we know how far down and right to draw
+    w = int(_canvas['width'])
+    h = int(_canvas['height'])
+    
+    # We will build a list of coordinates to make a large polygon
+    points = []
+    
+    # Generate the wavy top using a sine wave
+    amplitude = 15  # How tall the waves are
+    frequency = 0.05  # How squished together the waves are
+    
+    # Calculate the wavy line points across the screen
+    for current_x in range(x, w + 10, 10):
+        current_y = y + math.sin(current_x * frequency) * amplitude
+        points.append(current_x)
+        points.append(current_y)
+        
+    # Add the bottom-right and bottom-left corners to close the shape
+    points.append(w)
+    points.append(h)
+    points.append(x)
+    points.append(h)
+    
+    # Draw the solid wavy polygon
+    _canvas.create_polygon(points, fill=color, outline="", width=0)
+    
+def draw_foreground_ocean(x, y, color):
+    """
+    Draws a second, lower layer of the ocean with an offset wave pattern to create depth.
+    
+    AI Attribution: This function was generated using Gemini.
+    Original Student Prompt: "I want to make the backround blue and make it wavy at the top to lok like the ocean. This is the same code same thing as the first one you generated. But this time, make it lower and make the blue a lighter blue so it looks like theres 2 colors of blue for more detail and complexity! Paratmers (x,y,color)"
+    """
+    # Get the canvas height and width
+    w = int(_canvas['width'])
+    h = int(_canvas['height'])
+    
+    points = []
+    
+    # Change amplitude, frequency, and phase shift so this wave looks different
+    amplitude = 12     
+    frequency = 0.06   
+    phase_shift = 2.5  
+    
+    # Calculate the offset wavy line across the screen
+    for current_x in range(x, w + 10, 10):
+        current_y = y + math.sin(current_x * frequency + phase_shift) * amplitude
+        points.append(current_x)
+        points.append(current_y)
+        
+    # Close the shape at the bottom corners
+    points.append(w)
+    points.append(h)
+    points.append(x)
+    points.append(h)
+    
+    # Draw the foreground wavy layer
+    _canvas.create_polygon(points, fill=color, outline="", width=0)
+    
+    
+
 
 def draw_dolphin(x, y, size, color):
     """
@@ -437,4 +505,37 @@ def draw_seaweed(x, y, size, color):
         
     # Draw the smooth, polished seaweed polygon
     _canvas.create_polygon(flat_points, fill=color, outline=_outline
+
+
+def draw_wavy_sand(x, y, color, height):
+    """
+    Draws a smooth, wavy sandy floor at the bottom of the canvas.
+    
+    AI Attribution: This function was generated using Gemini.
+    Original Student Prompt: "I want to add sand on the bottom. Make it wavy like the ocean, but make it low. About 1/10 of the frame. Make the color brownish yellow like sand. parameters: (x,y,color,height)"
+    """
+    # Get the canvas width and height to anchor the bottom corners
+    w = int(_canvas['width'])
+    h = int(_canvas['height'])
+    
+    points = []
+    
+    # We scale the wave height (amplitude) based on the total height of the sand
+    amplitude = height * 0.2  
+    frequency = 0.04  # Controls how close together the wave crests are
+    
+    # Generate the wavy top edge of the sand
+    for current_x in range(x, w + 10, 10):
+        current_y = y + math.sin(current_x * frequency) * amplitude
+        points.append(current_x)
+        points.append(current_y)
+        
+    # Connect the points down to the bottom corners of the canvas to fill it in
+    points.append(w)
+    points.append(h)
+    points.append(x)
+    points.append(h)
+    
+    # Draw the wavy sand floor
+    _canvas.create_polygon(points, fill=color, outline="", width=0)
 
