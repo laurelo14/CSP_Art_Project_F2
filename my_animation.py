@@ -30,6 +30,39 @@ def draw_frame(frame_number, elapsed_seconds, width, height):
     sa.draw_dolphin(300, 100, 2, "#b8d3ff")
 
     
+    
+       #bubbles, starfish, shark angie
+    sa.draw_circle(700, 380, 25)
+    sa.set_fill_color("white")
+
+    sa.draw_circle(40, 50, 20)
+    sa.set_fill_color("white")
+
+    sa.draw_circle(200, 500, 10)
+    sa.set_fill_color("white")
+
+    sa.draw_circle(300, 35, 10)
+    sa.set_fill_color("white")
+
+    sa.draw_circle(350, 30, 5)
+    sa.set_fill_color("white")
+
+    sa.draw_circle(500, 200, 20)
+    sa.set_fill_color("white")
+    
+    sa.draw_circle(400, 300, 40)
+    sa.set_fill_color("white")
+
+    sa.draw_circle(200, 290, 20)
+    sa.set_fill_color("white")
+
+     sa.draw_circle(100, 500, 20)
+    sa.set_fill_color("white")
+
+    sa.draw_starfish(500, 300, 50, "yellow", 6)
+    
+    sa.draw_shark(500,300,200,"blue", "left")
+    
 if __name__ == "__main__":
         # Launch the wrapper and tell it to use our draw_frame function
     sa.start(draw_frame)
