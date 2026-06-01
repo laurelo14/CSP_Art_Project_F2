@@ -354,5 +354,336 @@ def draw_fish(x, y, size, color, direction):
     _canvas.create_oval(eye_x - eye_radius, eye_y - eye_radius, 
                         eye_x + eye_radius, eye_y + eye_radius, 
                         fill="white", outline="black", width=1)
+#angie starfish
+
+def draw_starfish(x, y, size, color, points):
+    """
+    Draws a starfish (star shape) with a cute face, centered at (x, y).
     
 
+    AI Attribution: This function was generated using Gemini.
+    Original Student Prompt: "pls add eyes and mouth to the starfish!"
+    """
+   
+    
+    coordinates = []
+    # A star has twice as many vertices as it has points (outer tips and inner dips)
+    angle_step = math.pi / points
+    start_angle = -math.pi / 2
+    
+    for i in range(2 * points):
+        if i % 2 == 0:
+            radius = size
+        else:
+            radius = size * 0.4  # Inner radius is 40% of the size
+            
+        current_angle = start_angle + i * angle_step
+        
+        vertex_x = x + radius * math.cos(current_angle)
+        vertex_y = y + radius * math.sin(current_angle)
+        
+        coordinates.append(vertex_x)
+        coordinates.append(vertex_y)
+        
+    # Draw the starfish body
+    _canvas.create_polygon(coordinates, fill=color, outline=_outline_color, width=_line_thickness)
+    
+    # --- Add the face ---
+    # Calculate sizes relative to the overall starfish size
+    eye_offset_x = size * 0.15
+    eye_offset_y = size * 0.1
+    eye_radius = size * 0.1
+    pupil_radius = size * 0.04
+    
+    # Left eye (white background, black pupil)
+    _canvas.create_oval(x - eye_offset_x - eye_radius, y - eye_offset_y - eye_radius, 
+                        x - eye_offset_x + eye_radius, y - eye_offset_y + eye_radius, 
+                        fill="white", outline="black")
+    _canvas.create_oval(x - eye_offset_x - pupil_radius, y - eye_offset_y - pupil_radius, 
+                        x - eye_offset_x + pupil_radius, y - eye_offset_y + pupil_radius, 
+                        fill="black", outline="black")
+                        
+    # Right eye (white background, black pupil)
+    _canvas.create_oval(x + eye_offset_x - eye_radius, y - eye_offset_y - eye_radius, 
+                        x + eye_offset_x + eye_radius, y - eye_offset_y + eye_radius, 
+                        fill="white", outline="black")
+    _canvas.create_oval(x + eye_offset_x - pupil_radius, y - eye_offset_y - pupil_radius, 
+                        x + eye_offset_x + pupil_radius, y - eye_offset_y + pupil_radius, 
+                        fill="black", outline="black")
+                        
+    # Mouth (a small open oval for a surprised/happy look)
+    mouth_y = y + size * 0.15
+    _canvas.create_oval(x - size * 0.08, mouth_y, 
+                        x + size * 0.08, mouth_y + size * 0.15, 
+                        fill="black", outline="black")
+    #angie shark
+
+def draw_shark(x, y, size, color, direction):
+    """
+    Draws a happy shark facing either 'left' or 'right'.
+    
+    AI Attribution: This function was generated using Gemini.
+    Original Student Prompt: "can you make a shark too with happy face... yes all [parameters: x, y, size, color, direction]"
+    """
+    # Define parts relative to the direction
+    if direction == "right":
+        # Tail on the left, snout on the right
+        tail_points = [
+            x + size * 0.15, y + size * 0.35,  # Connection to body
+            x, y + size * 0.1,                  # Top tail tip
+            x + size * 0.08, y + size * 0.35,   # Center fork
+            x, y + size * 0.6                   # Bottom tail tip
+        ]
+        # Dorsal fin (points up and backward)
+        dorsal_points = [
+            x + size * 0.35, y + size * 0.25,
+            x + size * 0.45, y,
+            x + size * 0.55, y + size * 0.25
+        ]
+        # Pectoral fin (bottom fin)
+        pectoral_points = [
+            x + size * 0.45, y + size * 0.45,
+            x + size * 0.35, y + size * 0.65,
+            x + size * 0.55, y + size * 0.45
+        ]
+        # Body oval coordinates
+        body_coords = (x + size * 0.1, y + size * 0.2, x + size, y + size * 0.5)
+        
+        # Face coordinates
+        eye_x = x + size * 0.82
+        eye_y = y + size * 0.3
+        smile_box = (x + size * 0.75, y + size * 0.32, x + size * 0.88, y + size * 0.44)
+        
+    else:
+        # Tail on the right, snout on the left
+        tail_points = [
+            x + size * 0.85, y + size * 0.35,  # Connection to body
+            x + size, y + size * 0.1,          # Top tail tip
+            x + size * 0.92, y + size * 0.35,  # Center fork
+            x + size, y + size * 0.6           # Bottom tail tip
+        ]
+        # Dorsal fin (points up and backward)
+        dorsal_points = [
+            x + size * 0.65, y + size * 0.25,
+            x + size * 0.55, y,
+            x + size * 0.45, y + size * 0.25
+        ]
+        # Pectoral fin (bottom fin)
+        pectoral_points = [
+            x + size * 0.55, y + size * 0.45,
+            x + size * 0.65, y + size * 0.65,
+            x + size * 0.45, y + size * 0.45
+        ]
+        # Body oval coordinates
+        body_coords = (x, y + size * 0.2, x + size * 0.9, y + size * 0.5)
+        
+        # Face coordinates
+        eye_x = x + size * 0.18
+        eye_y = y + size * 0.3
+        smile_box = (x + size * 0.12, y + size * 0.32, x + size * 0.25, y + size * 0.44)
+     
+     # 1. Draw Fins (drawn first so they sit behind the body)
+    _canvas.create_polygon(tail_points, fill=color, outline=_outline_color, width=_line_thickness)
+    _canvas.create_polygon(dorsal_points, fill=color, outline=_outline_color, width=_line_thickness)
+    _canvas.create_polygon(pectoral_points, fill=color, outline=_outline_color, width=_line_thickness)
+    
+    # 2. Draw Body
+    _canvas.create_oval(body_coords, fill=color, outline=_outline_color, width=_line_thickness)
+    
+    # 3. Draw Happy Eye (an arch/curve pointing up makes it look like it's smiling!)
+    eye_radius = size * 0.04
+    _canvas.create_arc(eye_x - eye_radius, eye_y - eye_radius, 
+                       eye_x + eye_radius, eye_y + eye_radius, 
+                       start=0, extent=180, style="arc", outline="black", width=_line_thickness + 1)
+                       
+    # 4. Draw Happy Smile
+    _canvas.create_arc(smile_box, start=180, extent=180, fill="black", outline="black")
+
+
+def draw_ocean(x, y, color):
+    """
+    Draws an ocean background with a wavy top starting at (x, y).
+    
+    AI Attribution: This function was generated using Gemini.
+    Original Student Prompt: "I want to make the backround blue and make it wavy at the top makeit look like the ocean. Parameters: (x,y,color)"
+    """
+    # Get the canvas height and width so we know how far down and right to draw
+    w = int(_canvas['width'])
+    h = int(_canvas['height'])
+    
+    # We will build a list of coordinates to make a large polygon
+    points = []
+    
+    # Generate the wavy top using a sine wave
+    amplitude = 15  # How tall the waves are
+    frequency = 0.05  # How squished together the waves are
+    
+    # Calculate the wavy line points across the screen
+    for current_x in range(x, w + 10, 10):
+        current_y = y + math.sin(current_x * frequency) * amplitude
+        points.append(current_x)
+        points.append(current_y)
+        
+    # Add the bottom-right and bottom-left corners to close the shape
+    points.append(w)
+    points.append(h)
+    points.append(x)
+    points.append(h)
+    
+    # Draw the solid wavy polygon
+    _canvas.create_polygon(points, fill=color, outline="", width=0)
+    
+def draw_foreground_ocean(x, y, color):
+    """
+    Draws a second, lower layer of the ocean with an offset wave pattern to create depth.
+    
+    AI Attribution: This function was generated using Gemini.
+    Original Student Prompt: "I want to make the backround blue and make it wavy at the top to lok like the ocean. This is the same code same thing as the first one you generated. But this time, make it lower and make the blue a lighter blue so it looks like theres 2 colors of blue for more detail and complexity! Paratmers (x,y,color)"
+    """
+    # Get the canvas height and width
+    w = int(_canvas['width'])
+    h = int(_canvas['height'])
+    
+    points = []
+    
+    # Change amplitude, frequency, and phase shift so this wave looks different
+    amplitude = 12     
+    frequency = 0.06   
+    phase_shift = 2.5  
+    
+    # Calculate the offset wavy line across the screen
+    for current_x in range(x, w + 10, 10):
+        current_y = y + math.sin(current_x * frequency + phase_shift) * amplitude
+        points.append(current_x)
+        points.append(current_y)
+        
+    # Close the shape at the bottom corners
+    points.append(w)
+    points.append(h)
+    points.append(x)
+    points.append(h)
+    
+    # Draw the foreground wavy layer
+    _canvas.create_polygon(points, fill=color, outline="", width=0)
+    
+    
+
+
+def draw_dolphin(x, y, size, color):
+    """
+    Draws a scalable dolphin shape on the canvas.
+    
+    AI Attribution:
+    Generated by Gemini based on the student prompt: 
+    "yes, add another parameter in the existing function that is already made, (add size)"
+    
+    Parameters:
+    x (int/float): The X-coordinate for the dolphin's position.
+    y (int/float): The Y-coordinate for the dolphin's position.
+    size (int/float): The scale multiplier (e.g., 1.0 for normal, 0.5 for half, 2.0 for double).
+    color (str): The fill color of the dolphin.
+    """
+    # Dolphin body (scaled using the size multiplier)
+    _canvas.create_oval(x, y, x + (120 * size), y + (50 * size), fill=color, outline=_outline_color, width=_line_thickness)
+    
+    # Snout/Beak (scaled offsets)
+    _canvas.create_polygon(x + (110 * size), y + (20 * size), 
+                           x + (140 * size), y + (35 * size), 
+                           x + (110 * size), y + (35 * size), 
+                           fill=color, outline=_outline_color, width=_line_thickness)
+    
+    # Dorsal Fin (scaled offsets)
+    _canvas.create_polygon(x + (50 * size), y + (5 * size), 
+                           x + (70 * size), y - (20 * size), 
+                           x + (80 * size), y + (10 * size), 
+                           fill=color, outline=_outline_color, width=_line_thickness)
+    
+    # Tail Fluke (scaled offsets)
+    _canvas.create_polygon(x, y + (25 * size), 
+                           x - (20 * size), y + (10 * size), 
+                           x - (20 * size), y + (40 * size), 
+                           fill=color, outline=_outline_color, width=_line_thickness)
+    
+    
+def draw_seaweed(x, y, size, color):
+    """
+    Draws a polished, realistic seaweed strand with an S-curve and tapered tip.
+    
+    AI Attribution:
+    Generated by Gemini based on the student prompt: 
+    "include the same parameters, just make the seaweed more realistic and polished in the function"
+    
+    Parameters:
+    x (int/float): The X-coordinate for the base center of the seaweed.
+    y (int/float): The Y-coordinate for the very bottom of the seaweed.
+    size (int/float): The scale multiplier for height and width.
+    color (str): The fill color of the seaweed.
+    """
+    # Highly tuned relative offsets to create a realistic, tapered wave
+    # Left side curves up, hits the sharp tip, right side mirrors back down with a taper
+    relative_points = [
+        # Left side (riding up and curving)
+        (-20 * size, 0),
+        (-35 * size, -75 * size),
+        (-15 * size, -150 * size),
+        (20 * size, -225 * size),
+        (35 * size, -300 * size),
+        (15 * size, -375 * size),
+        (-5 * size, -425 * size), 
+        
+        (0, -450 * size),           # Sharp elegant tip at the very top
+        
+        # Right side (tapering back down to a wider base)
+        (8 * size, -425 * size),
+        (25 * size, -375 * size),
+        (45 * size, -300 * size),
+        (30 * size, -225 * size),
+        (-5 * size, -150 * size),
+        (-20 * size, -75 * size),
+        (20 * size, 0)              # Right side base
+    ]
+  # Map the relative offset points to our absolute (x, y) starting position
+    flat_points = []
+    for offset_x, offset_y in relative_points:
+        flat_points.append(x + offset_x)
+        flat_points.append(y + offset_y)
+        
+    # Draw the smooth, polished seaweed polygon
+    _canvas.create_polygon(flat_points, fill=color, outline=_outline_color)
+
+
+def draw_wavy_sand(x, y, color, height):
+    """
+    Draws a smooth, wavy sandy floor at the bottom of the canvas.
+    
+    AI Attribution: This function was generated using Gemini.
+    Original Student Prompt: "I want to add sand on the bottom. Make it wavy like the ocean, but make it low. About 1/10 of the frame. Make the color brownish yellow like sand. parameters: (x,y,color,height)"
+    """
+    # Get the canvas width and height to anchor the bottom corners
+    w = int(_canvas['width'])
+    h = int(_canvas['height'])
+    
+    points = []
+    
+    # We scale the wave height (amplitude) based on the total height of the sand
+    amplitude = height * 0.2  
+    frequency = 0.04  # Controls how close together the wave crests are
+    
+    # Generate the wavy top edge of the sand
+    for current_x in range(x, w + 10, 10):
+        current_y = y + math.sin(current_x * frequency) * amplitude
+        points.append(current_x)
+        points.append(current_y)
+        
+    # Connect the points down to the bottom corners of the canvas to fill it in
+    points.append(w)
+    points.append(h)
+    points.append(x)
+    points.append(h)
+    
+    # Draw the wavy sand floor
+    _canvas.create_polygon(points, fill=color, outline="", width=0)
+
+
+
+   

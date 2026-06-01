@@ -75,9 +75,11 @@ def draw_octopus(centreX,centreY,width,height, eyes):
     
 
 
+
 def draw_frame(frame_number, elapsed_seconds, width, height):
     """Draws one frame of an animation. Called approx 60 times per second."""
     
+
     sa.fill_background("white") # Clear the background for this frame
    
      # Example Animation: A moving circle
@@ -86,22 +88,31 @@ def draw_frame(frame_number, elapsed_seconds, width, height):
     #sa.set_fill_color("red")
     
    # sa.fill_circle(x_ball, height / 2, 40)
+
+
+        # Draws a blue ocean starting at the left edge (x=0) and halfway down the screen (y=300)
+    sa.draw_ocean(0, 50, "#008CFF")                 # 1. Background layer: New Royal Blue (Higher up)
+    sa.draw_foreground_ocean(0, 200, "#5CBAFF")      # 2. Foreground layer: New slightly darker light blue (Lower down)0)
     
-    # Example Animation: A moving fish (a little more complicated) with changing colors
+    # Draws a smooth, brownish-yellow wavy sand layer at the bottom 10% of a 600px tall canvas
+    sa.draw_wavy_sand(0, 540, "#D2B48C", 100)
     
-  #  repeat_fish = 300 # number of frames to repeat
-  #  color_hue = (frame_number % repeat_fish) / repeat_fish
- #   fish_color = sa.hls_to_rgb_hex(color_hue, 0.5, 1.0)
+    sa.set_line_thickness(5)
+    sa.set_outline_color("green")
+    sa.draw_curve([(700, 600), (600, 500), (700, 400)])
+    sa.draw_curve([(700, 400), (800, 300), (700, 200)])
+    sa.draw_curve([(750, 650), (650, 550), (750, 450)])
+    sa.draw_curve([(750, 450), (850, 350), (700, 200)])
+
     
-  #  x_fish = sa.oscillate_frames(0, width-50, repeat_fish, frame_number)
-  #  y_fish = sa.oscillate_motion(height//2, height//2 +100, 0.15, frame_number)
+    sa.draw_seaweed(200, 600, 0.5, "green")
+    sa.draw_seaweed(150, 600, 1, "green")
+    sa.set_outline_color("#5d6e5f")
+    sa.draw_seaweed(100, 600, 1.6, "#5d6e5f")
     
-  #  if (frame_number % repeat_fish)  < (repeat_fish // 2):
-  #      sa.draw_fish(x_fish, y_fish, 50, fish_color, "right")
-  #  else:
-  #      sa.draw_fish(x_fish, y_fish, 50, fish_color, "left")
+
     global randInt
-    global foodObject
+
     
     repeat_octopus = 60
 
@@ -115,9 +126,48 @@ def draw_frame(frame_number, elapsed_seconds, width, height):
     
     #if (leftClickX - 20 <mouseX <leftClickX  + 20) and (leftClickY - 20 <mouseY <leftClickY  + 20):
     
+
+
+    sa.set_line_thickness(0)
+    sa.set_outline_color("#b8d3ff")
+    sa.draw_dolphin(300, 100, 2, "#b8d3ff")
+
     
     
+       #bubbles, starfish, shark angie
+    sa.draw_circle(700, 380, 25)
+    sa.set_fill_color("white")
+
+    sa.draw_circle(40, 50, 20)
+    sa.set_fill_color("white")
+
+    sa.draw_circle(200, 500, 10)
+    sa.set_fill_color("white")
+
+    sa.draw_circle(300, 35, 10)
+    sa.set_fill_color("white")
+
+    sa.draw_circle(350, 30, 5)
+    sa.set_fill_color("white")
+
+    sa.draw_circle(500, 200, 20)
+    sa.set_fill_color("white")
     
+    sa.draw_circle(400, 300, 40)
+    sa.set_fill_color("white")
+
+    sa.draw_circle(200, 290, 20)
+    sa.set_fill_color("white")
+
+     sa.draw_circle(100, 500, 20)
+    sa.set_fill_color("white")
+
+    sa.draw_starfish(500, 300, 50, "yellow", 6)
+
+    
+    sa.draw_shark(500,300,200,"blue", "left")
+    
+
     
     w_octopus = sa.oscillate_frames(octopus["w"],octopus["w"]+randInt,repeat_octopus, frame_number)
     h_octopus = sa.oscillate_frames(octopus["h"],octopus["h"]-randInt,repeat_octopus, frame_number)
@@ -134,8 +184,7 @@ def draw_frame(frame_number, elapsed_seconds, width, height):
             draw_octopus(octopus["x"],octopus["y"],w_octopus,h_octopus,"open")
             
         #sa.draw_fish(x_fish, yoctopus["eyeRadius"_fish, 50, fish_color, "left")
-    mX, mY = sa.get_mouse_x(), sa.get_mouse_y()
-    
+
     #if (octopus["x"]- octopus["w"]//2 <mX< octopus["x"] + octopus["w"]//2) and (octopus["y"]- octopus["h"]//2 <mX< octopus["y"] + octopus["h"]//2):
     #    foodObject["eaten"] = True
     #    octopus["state"] = "active"
@@ -163,8 +212,8 @@ def draw_frame(frame_number, elapsed_seconds, width, height):
 
 
 
+
 if __name__ == "__main__":
-    # Launch the wrapper and tell it to use our draw_frame function
+        # Launch the wrapper and tell it to use our draw_frame function
     sa.start(draw_frame)
-        
 
