@@ -3,7 +3,7 @@ import math
 import random
 import time
 randInt = 20
-octopus = {"x": 400, "y": 300, "w": 120, "h": 124, "eyeRadius": 8, "state": "idle"}
+octopus = {"x": 300, "y": 450, "w": 180, "h": 186, "eyeRadius": 12, "state": "idle"}
 #foodObject = {"x": 0, "y": 0, "h" : 50, "w" : 50, "c" : "blue", "eaten": False}
 
 
@@ -159,7 +159,7 @@ def draw_frame(frame_number, elapsed_seconds, width, height):
     sa.draw_circle(200, 290, 20)
     sa.set_fill_color("white")
 
-     sa.draw_circle(100, 500, 20)
+    sa.draw_circle(100, 500, 20)
     sa.set_fill_color("white")
 
     sa.draw_starfish(500, 300, 50, "yellow", 6)
@@ -216,4 +216,5 @@ def draw_frame(frame_number, elapsed_seconds, width, height):
 if __name__ == "__main__":
         # Launch the wrapper and tell it to use our draw_frame function
     sa.start(draw_frame)
+
 
