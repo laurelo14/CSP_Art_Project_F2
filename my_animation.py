@@ -5,8 +5,12 @@ def draw_frame(frame_number, elapsed_seconds, width, height):
     """Draws one frame of an animation. Called approx 60 times per second."""
     
 
-   
-
+        # Draws a blue ocean starting at the left edge (x=0) and halfway down the screen (y=300)
+    sa.draw_ocean(0, 50, "#008CFF")                 # 1. Background layer: New Royal Blue (Higher up)
+    sa.draw_foreground_ocean(0, 200, "#5CBAFF")      # 2. Foreground layer: New slightly darker light blue (Lower down)0)
+    
+    # Draws a smooth, brownish-yellow wavy sand layer at the bottom 10% of a 600px tall canvas
+    sa.draw_wavy_sand(0, 540, "#D2B48C", 100)
     
     sa.set_line_thickness(5)
     sa.set_outline_color("green")
@@ -29,3 +33,4 @@ def draw_frame(frame_number, elapsed_seconds, width, height):
 if __name__ == "__main__":
         # Launch the wrapper and tell it to use our draw_frame function
     sa.start(draw_frame)
+
