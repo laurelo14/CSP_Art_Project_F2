@@ -481,6 +481,24 @@ def draw_shark(x, y, size, color, direction):
         eye_x = x + size * 0.18
         eye_y = y + size * 0.3
         smile_box = (x + size * 0.12, y + size * 0.32, x + size * 0.25, y + size * 0.44)
+     
+     # 1. Draw Fins (drawn first so they sit behind the body)
+    _canvas.create_polygon(tail_points, fill=color, outline=_outline_color, width=_line_thickness)
+    _canvas.create_polygon(dorsal_points, fill=color, outline=_outline_color, width=_line_thickness)
+    _canvas.create_polygon(pectoral_points, fill=color, outline=_outline_color, width=_line_thickness)
+    
+    # 2. Draw Body
+    _canvas.create_oval(body_coords, fill=color, outline=_outline_color, width=_line_thickness)
+    
+    # 3. Draw Happy Eye (an arch/curve pointing up makes it look like it's smiling!)
+    eye_radius = size * 0.04
+    _canvas.create_arc(eye_x - eye_radius, eye_y - eye_radius, 
+                       eye_x + eye_radius, eye_y + eye_radius, 
+                       start=0, extent=180, style="arc", outline="black", width=_line_thickness + 1)
+                       
+    # 4. Draw Happy Smile
+    _canvas.create_arc(smile_box, start=180, extent=180, fill="black", outline="black")
+
 
 def draw_ocean(x, y, color):
     """
@@ -668,19 +686,4 @@ def draw_wavy_sand(x, y, color, height):
 
 
 
-    # 1. Draw Fins (drawn first so they sit behind the body)
-    _canvas.create_polygon(tail_points, fill=color, outline=_outline_color, width=_line_thickness)
-    _canvas.create_polygon(dorsal_points, fill=color, outline=_outline_color, width=_line_thickness)
-    _canvas.create_polygon(pectoral_points, fill=color, outline=_outline_color, width=_line_thickness)
-    
-    # 2. Draw Body
-    _canvas.create_oval(body_coords, fill=color, outline=_outline_color, width=_line_thickness)
-    
-    # 3. Draw Happy Eye (an arch/curve pointing up makes it look like it's smiling!)
-    eye_radius = size * 0.04
-    _canvas.create_arc(eye_x - eye_radius, eye_y - eye_radius, 
-                       eye_x + eye_radius, eye_y + eye_radius, 
-                       start=0, extent=180, style="arc", outline="black", width=_line_thickness + 1)
-                       
-    # 4. Draw Happy Smile
-    _canvas.create_arc(smile_box, start=180, extent=180, fill="black", outline="black")
+   
