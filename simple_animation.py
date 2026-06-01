@@ -504,7 +504,7 @@ def draw_seaweed(x, y, size, color):
         flat_points.append(y + offset_y)
         
     # Draw the smooth, polished seaweed polygon
-    _canvas.create_polygon(flat_points, fill=color, outline=_outline
+    _canvas.create_polygon(flat_points, fill=color, outline=_outline_color)
 
 
 def draw_wavy_sand(x, y, color, height):
@@ -538,4 +538,5 @@ def draw_wavy_sand(x, y, color, height):
     
     # Draw the wavy sand floor
     _canvas.create_polygon(points, fill=color, outline="", width=0)
+
 
